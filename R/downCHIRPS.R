@@ -1,3 +1,11 @@
+#' Download precipitation dataset CHIRPS v2 
+#'
+#' @param dir 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 downCHIRPS <- function(dir){
   
   ftp <- 'ftp://ftp.chg.ucsb.edu/pub/org/chg/products/CHIRPS-2.0/global_dekad/tifs/'
@@ -23,7 +31,3 @@ downCHIRPS <- function(dir){
     download.file(file.path(ftp,x),paste0(dir,'/',x),method='wget',quiet=TRUE)
     })
 }
-
-
-
-
