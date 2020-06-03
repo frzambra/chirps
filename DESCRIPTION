@@ -1,13 +1,19 @@
 Package: satdrought
-Title: What the Package Does (One Line, Title Case)
+Title: For working with satellite data form agricultural drought
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Francisco",
+           family = "Zambrano",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "frzambra@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
-License: What license it uses
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.1.0
+Imports: 
+    RCurl,
+    utils
+Suggests: 
+    testthat

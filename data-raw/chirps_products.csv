@@ -1,0 +1,8 @@
+Product,Name_file,Description
+global_2-monthly,chirps-v2.0.2019.1201.tiff.gz,Quasi-global 2-monthly fields. TIFF's.
+global_3-monthly,chirps-v2.0.1981.010203.tiff.gz,Quasi-global 3-monthly fields. TIFF's.
+global_annual,chirps-v2.0.1981.tif.gz,Quasi-global annual fields. NetCDF's and TIFF's.
+global_daily,chirps-v2.0.1981.01.01.tif.gz,Quasi-global daily fields. NetCDF's and TIFF's.
+global_dekad,chirps-v2.0.1981.01.1.tif.gz,"Quasi-global dekadal fields. BIL's, NetCDF's and TIFF's."
+global_monthly,chirps-v2.0.1981.01.tif.gz,"Quasi-global monthly fields. BIL's, NetCDF's and TIFF's."
+global_pentad,chirps-v2.0.1981.01.3.tif.gz,"Quasi-global pentadal fields. BIL's, NetCDF's and TIFF's."
