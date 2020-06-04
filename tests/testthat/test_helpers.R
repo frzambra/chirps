@@ -64,20 +64,20 @@ test_that(".getFTPAnnual to get the list of files to download annual", {
 
 testDaily <- function(product,span_time,res){
   e <- .getFTPDaily(product,span_time,res)
-  sum(unlist(lapply(e,dim)))
+  dim(e)
 }
 
 test_that(".getFTPDaily", {
   expect_equal(testDaily(product=namesProds[5],
-                         span_time=span_times[[1]],res=.05),368)
+                         span_time=span_times[[1]],res=.05),c(365,3))
   expect_equal(testDaily(product=namesProds[5],
-                         span_time=span_times[[1]],res=.25),368)
+                         span_time=span_times[[1]],res=.25),c(365,3))
   expect_equal(testDaily(product=namesProds[5],
-                         span_time=span_times[[2]],res=.05),371)
+                         span_time=span_times[[2]],res=.05),c(365,3))
   expect_equal(testDaily(product=namesProds[5],
-                         span_time=span_times[[3]],res=.05),371)
+                         span_time=span_times[[3]],res=.05),c(365,3))
   expect_equal(testDaily(product=namesProds[5],
-                         span_time=span_times[[4]],res=.05),739)
+                         span_time=span_times[[4]],res=.05),c(730,3))
 })
 
 test_that(".getFTPdekpen to download dekad files", {

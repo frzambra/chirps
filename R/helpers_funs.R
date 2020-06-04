@@ -15,7 +15,7 @@
 
   yrsDirs <- yrsDirs[match(yrs,yrsDirs)]
 
-  lf.ftp <- lapply(yrsDirs,function(x) {
+  filesDFl <- lapply(yrsDirs,function(x) {
     files <- strsplit(
       getURL(file.path(ftp,fold,x,'/'),
              .opts=curlOptions(ftplistonly=TRUE)), "\n")[[1]]
@@ -26,12 +26,12 @@
 
   })
 
-  #finding dates > span_time[1] and dates < span_time[2]
-  lf.ftp[[1]] <- lf.ftp[[1]][lf.ftp[[1]]$date >= span_time[1],]
-  lst <- length(lf.ftp)
-  lf.ftp[[lst]] <- lf.ftp[[lst]][lf.ftp[[lst]]$date <= span_time[2],]
+  filesDF <- do.call(rbind,filesDFl)
 
-  return(lf.ftp)
+  filesDF <- filesDF[filesDF[,3] >= span_time[1],]
+  filesDF <- filesDF[filesDF[,3] <= span_time[2],]
+
+  return(filesDF)
 }
 
 .getFTPdekpen <- function(product,span_time,fold='tifs',ftp =file.path(ftp.chirps,product)){

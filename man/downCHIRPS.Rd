@@ -4,12 +4,7 @@
 \alias{downCHIRPS}
 \title{Download/update CHIRPS v2}
 \usage{
-downCHIRPS(
-  path = getwd(),
-  product = "global_dekad",
-  time_span = NULL,
-  res = NULL
-)
+downCHIRPS(path = getwd(), product = "global_dekad", time_span, res)
 }
 \arguments{
 \item{path}{character. Folder in which the files will be saved.}
@@ -35,4 +30,10 @@ global_pentad \tab Quasi-global pentadal fields. \tab BIL, NetCDF and TIF
 }
 \description{
 For downloading global satellite estimates of precipitation from porduct CHIRPS v2
+}
+\examples{
+
+#Download ten days of the gloebal_daily product
+downCHIRPS(path=getwd(), product = 'global_daily', time_span = c('2019-01-01','2019-01-10'),res=.05)
+
 }
