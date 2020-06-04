@@ -19,10 +19,11 @@
 #'
 #' @return
 #' @export
-#' @importFrom RCurl getURL curlOptions
-#' @importFrom utils download.file askYesNo
+#' @importFrom RCurl getURL
+#' @importFrom utils download.file
 #' @importFrom raster crop extent writeRaster
 #' @importFrom rnaturalearth ne_countries
+#' @importFrom R.utils compressFile
 #'
 #' @examples
 #'

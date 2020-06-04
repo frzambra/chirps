@@ -30,7 +30,7 @@ downCHIRPS(path='~/Descargas/chirps/daily', res= .05,
            product=namesProds[5],time_span = span_times[[1]],
            crop_by=c('countries','chile'),format='gz')
 
-downCHIRPS(path='~/Descargas/chirps/2-month',
+ downCHIRPS(path='~/Descargas/chirps/2-month',
            product=namesProds[1],time_span = span_times[[1]])
 
 downCHIRPS(path='~/Descargas/chirps/3-month',

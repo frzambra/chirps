@@ -4,8 +4,7 @@
 #'
 #' @return
 #' @export
-#' @importFrom R.utils gunzip
-#' @importFrom raster raster
+#' @importMethodsFrom R.utils gunzip
 #' @importMethodsFrom raster raster
 #'
 #' @examples
