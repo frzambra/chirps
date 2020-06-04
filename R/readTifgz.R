@@ -4,9 +4,10 @@
 #'
 #' @return
 #' @export
-#' @importFrom R.utils gunzip
+#'
 #' @importFrom raster raster
 #' @importMethodsFrom raster raster
+#' @importFrom R.utils gunzip
 #'
 #' @examples
 readTifgz <- function(file){
@@ -16,11 +17,17 @@ readTifgz <- function(file){
   return(ras)
 }
 
-newName <- function(name,ext){
-  nameExt <- strsplit(as.character(as.matrix(ext)),'\\.')
-  pExt <- sapply(nameExt,'[',1)
-  pre <- paste0(c(num2let(pExt[1:2],'lon'),num2let(pExt[3:4],'lat')),collapse='.')
-  paste0(gsub('.tif.gz',paste0('_',pre,'.tif'),name))
+newName <- function(names,ext,format){
+
+  sapply(names,function(name){
+    nameExt <- strsplit(as.character(as.list(ext)),'\\.')
+    pExt <- sapply(nameExt,'[',1)
+    pre <- paste0(c(num2let(pExt[1:2],'lon'),num2let(pExt[3:4],'lat')),collapse='.')
+
+    ifelse(identical(format,'tif'),
+           paste0(gsub('.tif.gz',paste0('_',pre,'.tif'),name)),
+           paste0(gsub('.tif.gz',paste0('_',pre,'.tif.gz'),name)))
+  })
 }
 
 num2let <- function(coor,type= 'lat'){

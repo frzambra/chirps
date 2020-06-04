@@ -4,21 +4,21 @@
 \alias{downCHIRPS}
 \title{Download/update CHIRPS v2}
 \usage{
-downCHIRPS(path = getwd(), product = "global_dekad", time_span, res)
+downCHIRPS(path = getwd(), product, time_span, res, format = "tif", crop_by)
 }
 \arguments{
 \item{path}{character. Folder in which the files will be saved.}
 
 \item{product}{character. Type of product to download from \url{ftp://ftp.chg.ucsb.edu/pub/org/chg/products/CHIRPS-2.0/}
-\tabular{lll}{
-Product \tab Description \tab Format \cr
-global_2-monthly \tab Quasi-global 2-monthly fields \tab TIF. \cr
-global_3-monthly \tab Quasi-global 3-monthly fields \tab TIF. \cr
-global_annual \tab Quasi-global annual fields \tab NetCDF and TIF \cr
-global_daily  \tab Quasi-global daily fields \tab NetCDF and TIF \cr
-global_dekad  \tab Quasi-global dekadal fields \tab BIL, NetCDF and TIF \cr
-global_monthly \tab Quasi-global monthly fields \tab BIL, NetCDF and TIF \cr
-global_pentad \tab Quasi-global pentadal fields. \tab BIL, NetCDF and TIF
+\tabular{ll}{
+Product \tab Description \cr
+global_2-monthly \tab Quasi-global 2-monthly fields \cr
+global_3-monthly \tab Quasi-global 3-monthly fields \cr
+global_annual \tab Quasi-global annual fields \cr
+global_daily  \tab Quasi-global daily fields \cr
+global_dekad  \tab Quasi-global dekadal fields \cr
+global_monthly \tab Quasi-global monthly fields \cr
+global_pentad \tab Quasi-global pentadal fields.
 }}
 
 \item{time_span}{vector with two dates, \code{c(start,end)}}
@@ -33,7 +33,7 @@ For downloading global satellite estimates of precipitation from porduct CHIRPS 
 }
 \examples{
 
-#Download ten days of the gloebal_daily product
-downCHIRPS(path=getwd(), product = 'global_daily', time_span = c('2019-01-01','2019-01-10'),res=.05)
+#Download ten days of the global_daily product
+#downCHIRPS(path=getwd(), product = 'global_daily', time_span = c('2019-01-01','2019-01-10'),res=.05)
 
 }

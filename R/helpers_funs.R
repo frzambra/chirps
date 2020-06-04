@@ -1,5 +1,3 @@
-#' @export
-#'
 .getFTPDaily <- function(product,span_time,res,fold='tifs',ftp =file.path(ftp.chirps,product)){
 
   yrs <- lapply(

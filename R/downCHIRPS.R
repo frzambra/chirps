@@ -20,9 +20,10 @@
 #' @return
 #' @export
 #' @importFrom RCurl getURL curlOptions
-#' @importFrom utils download.file askYesNo
+#' @importFrom utils download.file
 #' @importFrom raster crop extent writeRaster
 #' @importFrom rnaturalearth ne_countries
+#' @importFrom R.utils compressFile
 #'
 #' @examples
 #'
@@ -39,6 +40,8 @@ downCHIRPS <- function(path = getwd(), product, time_span,
   if (identical(product,'global_daily') & missing(res)){
     stop("Product 'global_daily' need a 'res' parameter")}
 
+  if (!dir.exists(path)) dir.create(path)
+
   fileSel <- switch(product,
                        'global_daily' = .getFTPDaily(product,time_span,res),
                        'global_pentad' = .getFTPdekpen(product,time_span),
@@ -49,8 +52,21 @@ downCHIRPS <- function(path = getwd(), product, time_span,
                        'global_annual' = .getFTPAnnual(product,time_span)
                        )
 
+  if (is.numeric(crop_by) | is.character(crop_by)){
+    if (is.numeric(crop_by)) ext <- extent(crop_by)
+    if (is.character(crop_by)){
+      if (identical(crop_by[1],'continent')) {
+        ext <- extent(ne_countries(continent = crop_by[2],scale='small'))}
+      if (identical(crop_by[1],'countries')) {
+        ext <- extent(ne_countries(country = crop_by[2],scale='small'))}
+    }
+    fileSel$new_name <- newName(fileSel[,2],ext,format)
+  } else {
+    fileSel$new_name <- fileSel[,2]
+  }
+
   lclFls <- list.files(path,pattern =paste0('chirps-v2.0.*\\.',format,'$'))
-  files2down <- fileSel[!(fileSel$name %in% lclFls),]
+  files2down <- fileSel[!(fileSel$new_name %in% lclFls),]
 
   if (nrow(files2down) != 0){
       lapply(seq_along(files2down[,1]),function(i){
@@ -58,27 +74,21 @@ downCHIRPS <- function(path = getwd(), product, time_span,
         download.file(url=files2down[i,1],
                       destfile=destfile,
                       method = 'internal')
-        ras <- readTifgz(destfile)
 
-        if (is.numeric(crop_by) | is.character(crop_by)){
-          if (is.numeric(crop_by)) ext <- extent(crop_by)
-          if (is.character(crop_by)){
-            if (identical(crop_by[1],'continent')) {
-              ext <- extent(ne_countries(continent = crop_by[2],scale='small'))}
-            if (identical(crop_by[1],'countries')) {
-              ext <- extent(ne_countries(country = crop_by[2],scale='small'))}
-            ras <- crop(ras,ext)
-            unlink(destfile)
+        if (exists('ext')) {
+          ras <- readTifgz(destfile)
+          ras <- crop(ras,ext)
+
+          name <- gsub('.gz','',files2down$new_name[i])
+          writeRaster(ras,filename=file.path(path,name),
+                      format='GTiff')
+
+          if (identical(format,'gz')) {
+            compressFile(
+              file.path(path,gsub('tiff','tif',name)),
+              destname = file.path(path,files2down$new_name[i]),
+              ext='gz',FUN=gzfile)
           }
-        }
-        name <- newName(files2down[i,2],ext)
-        writeRaster(ras,filename=file.path(path,name),format='GTiff')
-
-        if (identical(format,'gz')) {
-          compressFile(
-            file.path(path,name),
-            destname = paste0(file.path(path,name),'.gz'),
-            ext='gz',FUN=gzfile)
         }
       })
   }
