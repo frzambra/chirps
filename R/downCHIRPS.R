@@ -31,7 +31,7 @@
 #' #downCHIRPS(path=getwd(), product = 'global_daily', time_span = c('2019-01-01','2019-01-10'),res=.05)
 #'
 downCHIRPS <- function(path = getwd(), product, time_span,
-                       res, format='tif', crop_by){
+                       res, format='tif', crop_by,...){
 
   if (all(is.na(match(product,namesProds)))) stop('Need a valid product name')
 
@@ -73,7 +73,7 @@ downCHIRPS <- function(path = getwd(), product, time_span,
         destfile <- file.path(path,files2down[i,2])
         download.file(url=files2down[i,1],
                       destfile=destfile,
-                      method = 'internal')
+                      method = 'internal',...)
 
         if (exists('ext')) {
           ras <- readTifgz(destfile)

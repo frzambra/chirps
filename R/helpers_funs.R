@@ -1,4 +1,5 @@
-.getFTPDaily <- function(product,span_time,res,fold='tifs',ftp =file.path(ftp.chirps,product)){
+.getFTPDaily <- function(product,span_time,res,fold='tifs',
+                         ftp =file.path(ftp.chirps,product)){
 
   yrs <- lapply(
     list(c(substr(span_time[1],1,4),substr(span_time[2],1,4))),

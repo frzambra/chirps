@@ -4,7 +4,15 @@
 \alias{downCHIRPS}
 \title{Download/update CHIRPS v2}
 \usage{
-downCHIRPS(path = getwd(), product, time_span, res, format = "tif", crop_by)
+downCHIRPS(
+  path = getwd(),
+  product,
+  time_span,
+  res,
+  format = "tif",
+  crop_by,
+  ...
+)
 }
 \arguments{
 \item{path}{character. Folder in which the files will be saved.}
