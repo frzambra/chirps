@@ -4,8 +4,12 @@
 #'
 #' @return
 #' @export
+<<<<<<< HEAD:R/readTifgz.R
 #'
 #' @importFrom raster raster
+=======
+#' @importMethodsFrom R.utils gunzip
+>>>>>>> 5a62ec8ee7baeb3b0f82f97b941eb00f31219925:R/radTifgz.R
 #' @importMethodsFrom raster raster
 #' @importFrom R.utils gunzip
 #'

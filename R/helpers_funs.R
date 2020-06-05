@@ -8,16 +8,11 @@
 
   fold <- ifelse(res==.05,paste0(fold,'/p05'),paste0(fold,'/p25'))
 
-  yrsDirs <- strsplit(
-    getURL(file.path(ftp,fold,'/'),
-           .opts=curlOptions(ftplistonly=TRUE)), "\n")[[1]]
-
+  yrsDirs <- .listFTPfls(file.path(ftp,fold,'/'))
   yrsDirs <- yrsDirs[match(yrs,yrsDirs)]
 
   filesDFl <- lapply(yrsDirs,function(x) {
-    files <- strsplit(
-      getURL(file.path(ftp,fold,x,'/'),
-             .opts=curlOptions(ftplistonly=TRUE)), "\n")[[1]]
+    files <- .listFTPfls(file.path(ftp,fold,x,'/'))
     files <- files[grep("*.gz$",files)]
     data.frame(url=file.path(ftp,fold,x,files),
                name = files,
@@ -35,10 +30,7 @@
 
 .getFTPdekpen <- function(product,span_time,fold='tifs',ftp =file.path(ftp.chirps,product)){
 
-  files <- strsplit(
-    getURL(file.path(ftp,fold,'/'),
-           .opts=curlOptions(ftplistonly=TRUE)), "\n")[[1]]
-
+  files <- .listFTPfls(file.path(ftp,fold,'/'))
   files <- files[grep('*.gz$',files)]
   datestr <- unlist(regmatches(files,gregexpr('[0-9]{2}.*[0-9]{1}',files)))
 
@@ -84,10 +76,7 @@
 
 .getFTP123mth <- function(product,span_time,fold='tifs',ftp = file.path(ftp.chirps,product)){
 
-  files <- strsplit(
-    getURL(file.path(ftp,fold,'/'),
-           .opts=curlOptions(ftplistonly=TRUE)), "\n")[[1]]
-
+  files <- .listFTPfls(file.path(ftp,fold,'/'))
   files <- files[grep('*.gz$',files)]
   datestr <- unlist(regmatches(files,gregexpr('[0-9]{2}.*[0-9]{2}',files)))
 
@@ -118,9 +107,7 @@
 
 .getFTPAnnual <- function(product,span_time,fold='tifs',ftp =file.path(ftp.chirps,product)){
 
-  files <- strsplit(
-    getURL(file.path(ftp,fold,'/'),
-           .opts=curlOptions(ftplistonly=TRUE)), "\n")[[1]]
+  files <- .listFTPfls(file.path(ftp,fold,'/'))
 
   files <- files[grep('[0-9]{4}.tif.gz$',files)]
   datestr <- unlist(regmatches(files,gregexpr('[0-9]{4}',files)))
@@ -139,4 +126,9 @@
 
   return(filesDF)
 
+}
+
+.listFTPfls <- function(ftpPath){
+  strsplit(getURL(ftpPath,
+                  ftp.use.epsv = FALSE, ftplistonly=TRUE,crlf = TRUE), "\r*\n")[[1]]
 }
