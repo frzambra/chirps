@@ -1,6 +1,5 @@
 context("downCHIRPS 2-month")
 library(satdrought)
-library(testthat)
 
 prod <- "global_2-monthly"
 

@@ -19,16 +19,12 @@
 #'
 #' @return
 #' @export
-<<<<<<< HEAD
-#' @importFrom RCurl getURL curlOptions
-=======
 #' @importFrom RCurl getURL
->>>>>>> 5a62ec8ee7baeb3b0f82f97b941eb00f31219925
 #' @importFrom utils download.file
 #' @importFrom raster crop extent writeRaster
 #' @importFrom rnaturalearth ne_countries
 #' @importFrom R.utils compressFile
-#'
+
 #' @examples
 #'
 #' #Download ten days of the global_daily product
