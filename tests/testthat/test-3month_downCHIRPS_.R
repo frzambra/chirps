@@ -1,14 +1,14 @@
 context("downCHIRPS 2-month")
-library(satdrought)
+library(chirps)
 
 prod <- "global_3-monthly"
 
 span_times = list(
-  c('1981-11-01',"1982-02-31"),
+  c('1981-11-01',"1982-02-28"),
   c(Sys.Date()-60,Sys.Date())
 )
 
-down <- TRUE
+down <- FALSE
 
 testDownCH <- function(path, res,product,time_span,crop_by,
                        format,...){
@@ -21,7 +21,7 @@ testDownCH <- function(path, res,product,time_span,crop_by,
   return(test)
 }
 
-test_that("Download CHIRPS 2-month countries chile, argentina, italy (.gz)", {
+test_that("Download CHIRPS 3-month countries chile, argentina, italy (.gz)", {
   skip_if_not(down)
   expect_true(testDownCH(path=file.path(tempdir(),'test'), res= .05,
                          product=prod,time_span = span_times[[1]],

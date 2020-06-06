@@ -1,8 +1,8 @@
 context("downCHIRPS daily")
-library(satdrought)
+library(chirps)
 
 prod <- "global_daily"
-down <- TRUE
+down <- FALSE
 
 span_times = list(
   c('1981-12-31',"1982-01-01"),

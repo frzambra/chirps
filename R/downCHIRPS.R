@@ -14,9 +14,13 @@
 #' global_monthly \tab Quasi-global monthly fields \cr
 #' global_pentad \tab Quasi-global pentadal fields.
 #' }
+#' @param path character. Path where the 'chirps' data will be downloaded
 #' @param time_span vector with two dates, \code{c(start,end)}
 #' @param res numeric. Resolution for daily product. It could be .05 or .25.
-#'
+#' @param format character. 'tif' or 'gz'
+#' @param crop_by character vector of two values. Provided to download a
+#' cropped data for either continent or country
+#' @param ...#'
 #' @return
 #' @export
 #' @importFrom RCurl getURL
@@ -25,6 +29,11 @@
 #' @importFrom rnaturalearth ne_countries
 #' @importFrom R.utils compressFile
 
+#' @param path
+#'
+
+
+#'
 #' @examples
 #'
 #' #Download ten days of the global_daily product
@@ -32,6 +41,9 @@
 #'
 downCHIRPS <- function(path = getwd(), product, time_span,
                        res, format='tif', crop_by,...){
+
+  time_span <- as.Date(time_span)
+  if(any(is.na(time_span))) stop('Needed a valid date')
 
   if (all(is.na(match(product,namesProds)))) stop('Need a valid product name')
 
@@ -52,15 +64,17 @@ downCHIRPS <- function(path = getwd(), product, time_span,
                        'global_annual' = .getFTPAnnual(product,time_span)
                        )
 
-  if (is.numeric(crop_by) | is.character(crop_by)){
-    if (is.numeric(crop_by)) ext <- extent(crop_by)
-    if (is.character(crop_by)){
-      if (identical(crop_by[1],'continent')) {
-        ext <- extent(ne_countries(continent = crop_by[2],scale='small'))}
-      if (identical(crop_by[1],'countries')) {
-        ext <- extent(ne_countries(country = crop_by[2],scale='small'))}
+  if (!missing(crop_by)){
+    if (is.numeric(crop_by) | is.character(crop_by)){
+      if (is.numeric(crop_by)) ext <- extent(crop_by)
+      if (is.character(crop_by)){
+        if (identical(crop_by[1],'continent')) {
+          ext <- extent(ne_countries(continent = crop_by[2],scale='small'))}
+        if (identical(crop_by[1],'countries')) {
+          ext <- extent(ne_countries(country = crop_by[2],scale='small'))}
+      }
+      fileSel$new_name <- newName(fileSel[,2],ext,format)
     }
-    fileSel$new_name <- newName(fileSel[,2],ext,format)
   } else {
     fileSel$new_name <- fileSel[,2]
   }
@@ -75,20 +89,21 @@ downCHIRPS <- function(path = getwd(), product, time_span,
                       destfile=destfile,
                       method = 'internal',...)
 
+        ras <- readTifgz(destfile)
+
         if (exists('ext')) {
-          ras <- readTifgz(destfile)
           ras <- crop(ras,ext)
+        }
+        name <- gsub('.gz','',files2down$new_name[i])
+        writeRaster(ras,filename=file.path(path,name),
+                    format='GTiff')
 
-          name <- gsub('.gz','',files2down$new_name[i])
-          writeRaster(ras,filename=file.path(path,name),
-                      format='GTiff')
 
-          if (identical(format,'gz')) {
-            compressFile(
-              file.path(path,gsub('tiff','tif',name)),
-              destname = file.path(path,files2down$new_name[i]),
-              ext='gz',FUN=gzfile)
-          }
+        if (identical(format,'gz')) {
+          compressFile(
+            file.path(path,gsub('tiff','tif',name)),
+            destname = file.path(path,files2down$new_name[i]),
+            ext='gz',FUN=gzfile)
         }
       })
   }

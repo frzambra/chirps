@@ -15,7 +15,7 @@ downCHIRPS(
 )
 }
 \arguments{
-\item{path}{character. Folder in which the files will be saved.}
+\item{path}{}
 
 \item{product}{character. Type of product to download from \url{ftp://ftp.chg.ucsb.edu/pub/org/chg/products/CHIRPS-2.0/}
 \tabular{ll}{
@@ -32,6 +32,11 @@ global_pentad \tab Quasi-global pentadal fields.
 \item{time_span}{vector with two dates, \code{c(start,end)}}
 
 \item{res}{numeric. Resolution for daily product. It could be .05 or .25.}
+
+\item{format}{character. 'tif' or 'gz'}
+
+\item{crop_by}{character vector of two values. Provided to download a
+cropped data for either continent or country}
 }
 \value{
 

@@ -1,4 +1,4 @@
 library(testthat)
-library(satdrought)
+library(chirps)
 
-test_check("satdrought")
+test_check("chirps")

@@ -6,7 +6,7 @@
     function(x) seq(x[1],x[2],1)
   )[[1]]
 
-  fold <- ifelse(res==.05,paste0(fold,'/p05'),paste0(fold,'/p25'))
+  fold <- ifelse(res==.05,file.path(fold,'p05'),file.path(fold,'p25'))
 
   yrsDirs <- .listFTPfls(file.path(ftp,fold,'/'))
   yrsDirs <- yrsDirs[match(yrs,yrsDirs)]

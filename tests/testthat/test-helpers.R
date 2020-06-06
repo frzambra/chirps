@@ -1,5 +1,5 @@
 context("Helper function .getFTP")
-library(satdrought)
+library(chirps)
 
 span_times = list(
   c('1981-01-01',"1981-12-31"),

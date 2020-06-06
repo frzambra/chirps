@@ -13,6 +13,6 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
 Imports: 
-    RCurl, utils, R.utils, raster, rnaturalearth
+    RCurl, utils, R.utils, raster, rnaturalearth, rgdal
 Suggests: 
     testthat

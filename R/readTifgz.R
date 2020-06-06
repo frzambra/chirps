@@ -1,5 +1,6 @@
 #' @importMethodsFrom raster raster
 #' @importFrom R.utils gunzip
+#' @import rgdal
 
 readTifgz <- function(file){
   tmpfile <- paste0(tempfile(),'.tif')

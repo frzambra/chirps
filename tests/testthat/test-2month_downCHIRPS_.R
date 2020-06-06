@@ -1,5 +1,5 @@
 context("downCHIRPS 2-month")
-library(satdrought)
+library(chirps)
 
 prod <- "global_2-monthly"
 
@@ -8,7 +8,7 @@ span_times = list(
   c(Sys.Date()-60,Sys.Date())
 )
 
-down <- TRUE
+down <- FALSE
 
 testDownCH <- function(path, res,product,time_span,crop_by,
                        format,...){
