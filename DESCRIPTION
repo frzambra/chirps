@@ -1,5 +1,5 @@
 Package: chirps
-Title: For working with precipitation estimates of product CHIRPS v2
+Title: For managing precipitation estimates of product CHIRPS v2
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Francisco",
