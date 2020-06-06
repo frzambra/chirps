@@ -52,7 +52,7 @@ downCHIRPS <- function(path = getwd(), product, time_span,
   if (identical(product,'global_daily') & missing(res)){
     stop("Product 'global_daily' need a 'res' parameter")}
 
-  if (!dir.exists(path)) dir.create(path)
+  if (!dir.exists(path)) dir.create(path=path,recursive = TRUE)
 
   fileSel <- switch(product,
                        'global_daily' = .getFTPDaily(product,time_span,res),

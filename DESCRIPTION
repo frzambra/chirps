@@ -7,7 +7,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "frzambra@gmail.com",
            comment = c(ORCID = "0000-0001-6896-8534"))
-Description: What the package does (one paragraph).
+Description: At this moment not much, just allow to download chirps v2 data for a 
+             specific product type and time span.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

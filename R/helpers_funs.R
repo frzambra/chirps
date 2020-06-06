@@ -13,7 +13,7 @@
 
   filesDFl <- lapply(yrsDirs,function(x) {
     files <- .listFTPfls(file.path(ftp,fold,x,'/'))
-    files <- files[grep("*.gz$",files)]
+    files <- files[grep("*.(gz|tif)$",files)]
     data.frame(url=file.path(ftp,fold,x,files),
                name = files,
                date=as.Date(unlist(regmatches(files,gregexpr('[0-9]{2}.*[0-9]{2}',files))),"%Y.%m.%d"))

@@ -27,29 +27,35 @@ You can install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("frzambra/satdrought")
+devtools::install_github("frzambra/chirps")
 ```
 ## Example
 
-<!-- This is a basic example which shows you how to solve a common problem: -->
+```{r examples,warning=FALSE}
+library(chirps)
+library(raster)
 
-<!-- ```{r example} -->
-<!-- library(chirps) -->
-<!-- ## basic example code -->
-<!-- ``` -->
+times <- list(
+  c('2019-10-01','2019-12-31'),
+  c('2020-04-25','2020-04-30'))
+  
+# this will download 2-monthly chirps data
+path <- '~/chirps/2-month' #download path
 
-<!-- What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so: -->
+downCHIRPS(path,product= "global_2-monthly",time_span =times[[1]],
+           crop_by=c('countries','chile'))
 
-<!-- ```{r cars} -->
-<!-- summary(cars) -->
-<!-- ``` -->
+pre <- raster::stack(list.files(path,pattern = '*.tif$',full.names = TRUE))
+pre[pre == -9999] <- NA
+plot(pre)
 
-<!-- You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. -->
+# this will download daily chirps data
+path <- '~/chirps/daily' #download path
 
-<!-- You can also embed plots, for example: -->
+downCHIRPS(path,product= "global_daily",time_span =times[[2]],
+           crop_by=c('continent','South America'),res=.25)
 
-<!-- ```{r pressure, echo = FALSE} -->
-<!-- plot(pressure) -->
-<!-- ``` -->
-
-<!-- In that case, don't forget to commit and push the resulting figure files, so they display on GitHub! -->
+pre <- raster::stack(list.files(path,pattern = '*.tif$',full.names = TRUE))
+pre[pre == -9999] <- NA
+plot(pre)
+```
